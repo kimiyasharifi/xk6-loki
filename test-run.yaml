@@ -1,0 +1,60 @@
+---
+apiVersion: k6.io/v1alpha1
+kind: TestRun
+metadata:
+  name: xk6-loki-read
+  namespace: load-test
+spec:
+  parallelism: 4
+  script:
+    localFile: /test/read-senario.js
+  env:
+    - name: BASE_URL
+      value: https://your-loki-instance.example.com
+  separate: false
+  runner:
+    image:
+    metadata:
+      labels:
+        xk6-loki-read-test: true
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+    resources:
+      limits:
+        cpu: 200m
+        memory: 1000Mi
+      requests:
+        cpu: 100m
+        memory: 500Mi
+---
+apiVersion: k6.io/v1alpha1
+kind: TestRun
+metadata:
+  name: xk6-loki-write
+  namespace: load-test
+spec:
+  parallelism: 4
+  script:
+    localFile: /test/write-senario.js
+  env:
+    - name: BASE_URL
+      value: https://your-loki-instance.example.com
+  separate: false
+  runner:
+    image:
+    metadata:
+      labels:
+        xk6-loki-write-test: true
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+    resources:
+      limits:
+        cpu: 200m
+        memory: 1000Mi
+      requests:
+        cpu: 100m
+        memory: 500Mi
