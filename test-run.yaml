@@ -8,12 +8,12 @@ spec:
   parallelism: 4
   script:
     localFile: /test/read-senario.js
-  env:
-    - name: BASE_URL
-      value: https://your-loki-instance.example.com
   separate: false
   runner:
-    image:
+    image: ghcr.io/kimiyasharifi/xk6-loki:main
+    env:
+    - name: BASE_URL
+      value: https://your-loki-instance.example.com
     metadata:
       labels:
         xk6-loki-read-test: true
@@ -38,12 +38,12 @@ spec:
   parallelism: 4
   script:
     localFile: /test/write-senario.js
-  env:
-    - name: BASE_URL
-      value: https://your-loki-instance.example.com
   separate: false
   runner:
-    image:
+    image: ghcr.io/kimiyasharifi/xk6-loki:main
+    env:
+    - name: BASE_URL
+      value: https://your-loki-instance.example.com
     metadata:
       labels:
         xk6-loki-write-test: true
