@@ -6,28 +6,13 @@ curl https://raw.githubusercontent.com/grafana/k6-operator/main/bundle.yaml | ku
 
 ## Adding test scripts
 
-#### LocalFile
+#### ConfigMap
 
-We configure to run a test script inside the docker image. you can pass it to the test like this:
-
-```yaml
-spec:
-  parallelism: 4
-  script:
-    localFile: /test/read-senario.js
-```
-
-```yaml
-spec:
-  parallelism: 4
-  script:
-    localFile: /test/write-senario.js
-```
-
-The test configuration is applied using
+Run the following command to configure through `ConfigMap` our jobs and serve test scripts to the jobs.
 
 ```bash
-kubectl apply -f test-run.yaml
+kubectl create configmap read-senario  --from-file ./test/read-senario.js
+kubectl create configmap write-senario --from-file ./test/write-senario.js
 ```
 
 ### Using extensions

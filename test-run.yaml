@@ -7,27 +7,14 @@ metadata:
 spec:
   parallelism: 4
   script:
-    localFile: /test/read-senario.js
-  separate: false
+    configMap: 
+      name: read-senario
+      file: read-senario.js
   runner:
-    image: ghcr.io/kimiyasharifi/xk6-loki:main
+    image: docker.io/7777ksh/xk6-loki:7.0.1
     env:
     - name: BASE_URL
-      value: https://your-loki-instance.example.com
-    metadata:
-      labels:
-        xk6-loki-read-test: true
-    securityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      runAsNonRoot: true
-    resources:
-      limits:
-        cpu: 200m
-        memory: 1000Mi
-      requests:
-        cpu: 100m
-        memory: 500Mi
+      value: "http://loki-gateway.snappcloud-network-logging.svc.cluster.local"
 ---
 apiVersion: k6.io/v1alpha1
 kind: TestRun
@@ -37,24 +24,11 @@ metadata:
 spec:
   parallelism: 4
   script:
-    localFile: /test/write-senario.js
-  separate: false
+    configMap: 
+      name: write-senario
+      file: write-senario.js
   runner:
-    image: ghcr.io/kimiyasharifi/xk6-loki:main
+    image: docker.io/7777ksh/xk6-loki:7.0.1
     env:
     - name: BASE_URL
-      value: https://your-loki-instance.example.com
-    metadata:
-      labels:
-        xk6-loki-write-test: true
-    securityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      runAsNonRoot: true
-    resources:
-      limits:
-        cpu: 200m
-        memory: 1000Mi
-      requests:
-        cpu: 100m
-        memory: 500Mi
+      value: "http://loki-gateway.snappcloud-network-logging.svc.cluster.local" 

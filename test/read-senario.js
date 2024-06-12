@@ -7,7 +7,7 @@ import loki from 'k6/x/loki';
  * @constant {string}
  * const BASE_URL = `https://${TENANT_ID}:${ACCESS_TOKEN}@${HOST}`;
  */
-const BASE_URL = __ENV.BASE_URL || fail("provide BASE_URL when starting k6"); 
+const BASE_URL = __ENV.BASE_URL || fail("provide BASE_URL when starting k6");
 
 /**
  * Amount of virtual users (VUs)
